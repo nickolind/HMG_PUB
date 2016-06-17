@@ -10,15 +10,16 @@ NSA_hp_init_respawnWave = compile preprocessFileLineNumbers "init_respawnWave.sq
 
 if !(isServer) exitWith {};
 
-private ["_respawnWave","_resSide"];
+private ["_respawnWave","_resSide","_resSideInt"];
 
 _resSide = _this select 1;
+_resSideInt = [east,west,resistance] find _resSide;
 // _resSide = if (count _this >= 2) then { _this select 1 } else { [east,west,resistance,civilian,sideLogic] };
 
 
-// Если боец в бессознанке - и тут же респавнить
+// Если боец в бессознанке - респавнить
 {
-	if ((isPlayer _x) && (_x getVariable ["ACE_isUnconscious",false]) && (side group player == _resSide)) then {
+	if ((isPlayer _x) && (_x getVariable ["ACE_isUnconscious",false]) && (side group _x == _resSide)) then {
 		_x setDamage 1;
 		NSA_hp_forceRespawn = true;
 		(owner _x) publicVariableClient "NSA_hp_forceRespawn";
@@ -28,8 +29,8 @@ _resSide = _this select 1;
 
 
 _respawnWave = _this select 0;
-_waveNum = (NSA_hp_RespawnWave select 0) + 1;
+_waveNum = ((NSA_hp_RespawnWave select _resSideInt) select 0) + 1;
 
 ["hp_respWaveTime_" + str _resSide, "create", _respawnWave] call NSA_Timer;
-NSA_hp_RespawnWave = [_waveNum, _respawnWave];
+NSA_hp_RespawnWave set [_resSideInt, [_waveNum, _respawnWave]];
 publicVariable "NSA_hp_RespawnWave";

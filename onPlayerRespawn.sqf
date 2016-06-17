@@ -1,4 +1,4 @@
-private ["_newPlayer","_oldPlayer","_justConnected"];
+private ["_newPlayer","_oldPlayer","_justConnected","_pside"];
 
 _newPlayer = _this select 0;
 _oldPlayer = _this select 1;
@@ -16,11 +16,12 @@ if (_justConnected) then {				// ----- Заход игрока на сервер
 	
 	};
 
+_pside = [east,west,resistance] find (player getVariable "NSA_plrSide");	
 
 cutText ["","BLACK IN",0];
 ["Terminate"] call BIS_fnc_EGSpectator;
 
-setPlayerRespawnTime (15 max (NSA_hp_RespawnWave select 1));
+setPlayerRespawnTime (20 max ((NSA_hp_RespawnWave select _pside) select 1));
 
 _newPlayer allowDamage false;
 

@@ -20,13 +20,13 @@ NSA_hp_init_newRound = compile preprocessFileLineNumbers "init_newRound.sqf";
 
 if !(isServer) exitWith {};
 
-private ["_gamePrepareTime","_roundTime","_respawnWave","_roundPauseTime","_winner","_score"];
+private ["_gamePrepareTime","_roundTime","_respawnWave","_roundPauseTime","_winner","_score","_cside"];
 
 _gamePrepareTime 	= _this select 0;
 _roundTime 			= _this select 1;
 _respawnWave 		= _this select 2;
 
-_roundPauseTime = 10;	// testing
+_roundPauseTime = 30;	// testing
 // _roundPauseTime = 120;
 
 
@@ -65,17 +65,16 @@ diag_log format ["NSA_hp_RoundsCount = %1",NSA_hp_RoundsCount];	// testing
 
 ["initRound", "delete"] call NSA_Timer;
 ["hp_roundTime", "delete"] call NSA_Timer;
-// ["hp_respWaveTime", "delete"] call NSA_Timer;
 {
 	if (_x) then {
-		["hp_respWaveTime", "delete"] call NSA_Timer;
+		_cside = [east,west,resistance] select _forEachIndex;
+		["hp_respWaveTime_" + str _cside, "delete"] call NSA_Timer;
 	};
 } forEach NSA_hp_PlayingSides;
 
 NSA_hp_GameStarted = 0;
-// NSA_hp_RespawnWave = [0, NSA_hp_GameStarted];
-NSA_hp_RespawnWave = [0, _roundPauseTime];
-// NSA_hp_RespawnWave = [0, 9999];
+// NSA_hp_RespawnWave = [0, _roundPauseTime];
+NSA_hp_RespawnWave = [[0, _roundPauseTime],[0, _roundPauseTime],[0, _roundPauseTime]];
 publicVariable "NSA_hp_GameStarted";
 publicVariable "NSA_hp_RespawnWave";
 
@@ -123,11 +122,10 @@ _newWeather = [_va,_vb, _vc, _vd]; // [overcast, rain, lightning, fog]
 
 
 [] call NSA_hp_CP_Init;		// Пересоздать точки захвата
-diag_log format ["testCRASH: 7"];	// testing
+
 
 sleep 10;
 
-diag_log format ["testCRASH: 7.1"]; // testing
 
 [] call {
 															// ["hmg_msv_rifleman","hmg_infantry_msv_base","SoldierEB","CAManBase","Man","Land","AllVehicles","All"]
@@ -142,7 +140,7 @@ diag_log format ["testCRASH: 7.1"]; // testing
 waitUntil { 
 	sleep 1;
 	_roundPauseTime = ["hp_roundPause", "getTime"] call NSA_Timer;
-	NSA_hp_RespawnWave = [0, _roundPauseTime];
+	NSA_hp_RespawnWave = [[0, _roundPauseTime],[0, _roundPauseTime],[0, _roundPauseTime]];
 	(_roundPauseTime <= 0)
 };
 
@@ -151,7 +149,7 @@ waitUntil {
 
 
 NSA_hp_GameStarted = _gamePrepareTime;
-NSA_hp_RespawnWave = [0, 0];
+NSA_hp_RespawnWave = [[0, 0],[0, 0],[0, 0]];
 publicVariable "NSA_hp_GameStarted";
 
 ["initRound", "create", NSA_hp_GameStarted] call NSA_Timer;
@@ -168,7 +166,12 @@ waitUntil {
 NSA_hp_roundTime = _roundTime;
 publicVariable "NSA_hp_roundTime";
 
-[_respawnWave] call NSA_hp_init_respawnWave;
+{
+	if (_x) then {
+		_cside = [east,west,resistance] select _forEachIndex;
+		[_respawnWave, _cside] call NSA_hp_init_respawnWave;
+	};
+} forEach NSA_hp_PlayingSides;
 
 ["hp_roundTime", "create", NSA_hp_roundTime] call NSA_Timer;
 

@@ -1,5 +1,5 @@
 
-private ["_justConnected","_respawnMark"];
+private ["_justConnected","_respawnMark","_pside"];
 
 _justConnected = false;
 if (isNil {NSA_hp_PlayerConnected}) then {
@@ -11,7 +11,8 @@ if (isNil {NSA_hp_PlayerConnected}) then {
 	titleCut ["", "BLACK IN", 4];
 };
 
-_respawnMark = (NSA_hp_RespawnWave select 0);
+_pside = [east,west,resistance] find (player getVariable "NSA_plrSide");
+_respawnMark = ((NSA_hp_RespawnWave select _pside) select 0);
 setPlayerRespawnTime 9999;
 
 if !(_justConnected) then {
@@ -20,7 +21,7 @@ if !(_justConnected) then {
 	};
 };
 
-[_justConnected, _respawnMark] spawn {
+[_justConnected, _respawnMark, _pside] spawn {
 		
 		// _justConnected
 	if !(_this select 0) then {
@@ -48,13 +49,16 @@ if !(_justConnected) then {
 	};
 
 		// _respawnMark
-	[(_this select 1)] spawn {
+	[(_this select 1), (_this select 2)] spawn {
+		private ["_pside"];
+		_pside = _this select 1;
+		
 		while {(!alive player) } do {
 						// titleText [ format ["Следующая волна подкреплений через: %1", [playerRespawnTime,"MM:SS"] call BIS_fnc_secondsToString], "PLAIN DOWN"];
 			
 				// _respawnMark
 			if (
-				((_this select 0) != (NSA_hp_RespawnWave select 0) && ((NSA_hp_RespawnWave select 0) != 0)) 
+				((_this select 0) != ((NSA_hp_RespawnWave select _pside) select 0) && (((NSA_hp_RespawnWave select _pside) select 0) != 0)) 
 				||
 				// (NSA_hp_GameStarted > 0)
 				// ||
@@ -66,8 +70,8 @@ if !(_justConnected) then {
 
 			};
 
-			if (abs((NSA_hp_RespawnWave select 1) - playerRespawnTime) > 5) then {setPlayerRespawnTime (NSA_hp_RespawnWave select 1); };
-			if (NSA_hp_RespawnWave select 0 <= 0) then {
+			if (abs(((NSA_hp_RespawnWave select _pside) select 1) - playerRespawnTime) > 5) then {setPlayerRespawnTime ((NSA_hp_RespawnWave select _pside) select 1); };
+			if ((NSA_hp_RespawnWave select _pside) select 0 <= 0) then {
 				hint format ["Игра начнется через: %1", [0 max playerRespawnTime,"MM:SS"] call BIS_fnc_secondsToString];
 			} else { hint format ["Следующая волна подкреплений через: %1", [0 max playerRespawnTime,"MM:SS"] call BIS_fnc_secondsToString]; };
 			
