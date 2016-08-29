@@ -50,7 +50,7 @@ if (isServer) then {
 
 	if (missionNamespace getVariable ["ns_sm_debug", false]) exitWith {};
 
-	// private ["_thisList","_tName","_tMode","_objList","_grpList","_tHight","_timeToWait","_mNotify","_message","_cveh","_isInGrp","_vehToKill","_y","_z"];
+	private ["_thisList","_tName","_tMode","_objList","_grpList","_tHight","_timeToWait","_mNotify","_message","_cveh","_isInGrp","_vehToKill","_y","_z"];
 
 	_thisList = _this select 0;												// Использовать для ручного ввода параметров прямо в скрипт (при условии что скрипт был вызван следующей строкой):
 	_tName = _this select 1;												// null = [thislist, thisTrigger] execVM "KillTrigger_OP.sqf"
@@ -64,7 +64,6 @@ if (isServer) then {
 	_message = "Вы зашли в запретную зону. Вернитесь немедленно!";			//  	<-----------------------Свое сообщение-предупреждение
 	
 	
-	hint str _this;
 	switch (count _this) do {
 		CASE 3:
 		{

@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=208;
+		nextID=217;
 	};
 	class Camera
 	{
@@ -71,18 +71,23 @@ class AddonsMetaData
 		class Item3
 		{
 			className="rhs_c_troops";
-			name="rhs_c_troops";
+			name="AFRF Infantry & Equipment";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item4
 		{
 			className="rhs_c_weapons";
-			name="rhs_c_weapons";
-			author="RHS";
+			name="AFRF Weapons Pack";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item5
 		{
 			className="ace_compat_rhs_afrf3";
-			name="ace_compat_rhs_afrf3";
+			name="ACE3 - RHS AFRF Compatibility";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
 		};
 		class Item6
 		{
@@ -94,27 +99,37 @@ class AddonsMetaData
 		class Item7
 		{
 			className="ace_optics";
-			name="ace_optics";
+			name="ACE3 - Optics";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
 		};
 		class Item8
 		{
 			className="ace_medical";
-			name="ace_medical";
+			name="ACE3 - Medical";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
 		};
 		class Item9
 		{
 			className="rhsusf_c_troops";
-			name="rhsusf_c_troops";
+			name="RHSUSF Infantry & Equipment";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item10
 		{
 			className="rhs_c_btr";
-			name="rhs_c_btr";
+			name="BTR-70 & 80";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item11
 		{
 			className="rhs_c_bmp";
-			name="rhs_c_bmp";
+			name="BMP-1 & 2 IFV";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item12
 		{
@@ -131,7 +146,9 @@ class AddonsMetaData
 		class Item14
 		{
 			className="ace_weather";
-			name="ace_weather";
+			name="ACE3 - Weather";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
 		};
 	};
 };
@@ -247,6 +264,8 @@ class Mission
 		forecastWaves=0.1;
 		forecastLightnings=0.1;
 		rainForced=1;
+		lightningsForced=1;
+		wavesForced=1;
 		windForced=1;
 		year=2014;
 		month=6;
@@ -1292,6 +1311,7 @@ class Mission
 							};
 							id=64;
 							type="EmptyDetector";
+							atlOffset=-0.045115471;
 						};
 						class Item9
 						{

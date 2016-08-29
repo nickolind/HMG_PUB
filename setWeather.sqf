@@ -15,7 +15,7 @@ _newWeather = _this select 1;	// [overcast, rain, lightning, fog]
 60 setOvercast (_newWeather select 0); // 86400 = 24hrs
 if (isServer) then { 
 	// 60 setRain (_newWeather select 1); // Пока не включать, глючит
-	// 60 setRain 0.02; // testing
+	60 setRain 0; // testing
 	60 setFog (_newWeather select 3);
 };
 // 60 setLightnings (_newWeather select 2); // Пока не включать, из-за setRain

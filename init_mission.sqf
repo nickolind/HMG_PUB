@@ -11,7 +11,7 @@
 													
 													
 													
-NSA_param_gamePrepareTime 		= 20;		// NSA_param_gamePrepareTime -->  		120
+NSA_param_gamePrepareTime 		= 30;		// NSA_param_gamePrepareTime -->  		30					В этот период все присоединяющиеся сразу же возрождаются
 NSA_param_roundTime 			= 3000;		// NSA_param_roundTime -->  			2400	(40mins)
 NSA_param_respawnWave 			= 20;		// NSA_param_respawnWave -->  			600		(10mins)
 

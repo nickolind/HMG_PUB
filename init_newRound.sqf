@@ -27,7 +27,7 @@ _roundTime 			= _this select 1;
 _respawnWave 		= _this select 2;
 
 _roundPauseTime = 30;	// testing
-// _roundPauseTime = 120;
+// _roundPauseTime = 150;
 
 
 

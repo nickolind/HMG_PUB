@@ -115,7 +115,7 @@ if (_mNotify >= 1) then {
 			sleep 5;
 			
 			if (_s_victim getVariable ["NSA_KT_Sent",0] != 0) exitWith { true };
-			if ((serverTime - _s_time) >= 300)  exitWith {deleteMarker _ns_mark; true};
+			if ((serverTime - _s_time) >= _tHight)  exitWith {deleteMarker _ns_mark; true};
 				
 		};
 
